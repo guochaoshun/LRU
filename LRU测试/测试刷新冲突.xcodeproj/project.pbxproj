@@ -10,7 +10,6 @@
 		5073CFCC2809A9AA002CFABF /* ULLRUNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFC02809A9AA002CFABF /* ULLRUNode.m */; };
 		5073CFCD2809A9AA002CFABF /* ULLRULinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFC12809A9AA002CFABF /* ULLRULinkedList.m */; };
 		5073CFCE2809A9AA002CFABF /* ULLRUCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFC22809A9AA002CFABF /* ULLRUCache.m */; };
-		5073CFCF2809A9AA002CFABF /* ULLRULinkedList+Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFC42809A9AA002CFABF /* ULLRULinkedList+Array.m */; };
 		5073CFD02809A9AA002CFABF /* ULLRUCache+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFC72809A9AA002CFABF /* ULLRUCache+Convenience.m */; };
 		5073CFD32809AEF7002CFABF /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFD22809AEF7002CFABF /* Person.m */; };
 		5073CFD62809B666002CFABF /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFD52809B665002CFABF /* YYMemoryCache.m */; };
@@ -47,9 +46,7 @@
 		5073CFC02809A9AA002CFABF /* ULLRUNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ULLRUNode.m; sourceTree = "<group>"; };
 		5073CFC12809A9AA002CFABF /* ULLRULinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ULLRULinkedList.m; sourceTree = "<group>"; };
 		5073CFC22809A9AA002CFABF /* ULLRUCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ULLRUCache.m; sourceTree = "<group>"; };
-		5073CFC42809A9AA002CFABF /* ULLRULinkedList+Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ULLRULinkedList+Array.m"; sourceTree = "<group>"; };
 		5073CFC52809A9AA002CFABF /* ULLRUCache+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ULLRUCache+Convenience.h"; sourceTree = "<group>"; };
-		5073CFC62809A9AA002CFABF /* ULLRULinkedList+Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ULLRULinkedList+Array.h"; sourceTree = "<group>"; };
 		5073CFC72809A9AA002CFABF /* ULLRUCache+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ULLRUCache+Convenience.m"; sourceTree = "<group>"; };
 		5073CFCB2809A9AA002CFABF /* ULLRUCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ULLRUCache.h; sourceTree = "<group>"; };
 		5073CFD12809AEF7002CFABF /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -104,7 +101,8 @@
 			children = (
 				5073CFCB2809A9AA002CFABF /* ULLRUCache.h */,
 				5073CFC22809A9AA002CFABF /* ULLRUCache.m */,
-				5073CFC32809A9AA002CFABF /* Categroy */,
+				5073CFC52809A9AA002CFABF /* ULLRUCache+Convenience.h */,
+				5073CFC72809A9AA002CFABF /* ULLRUCache+Convenience.m */,
 				5073CFBD2809A9AA002CFABF /* LinkedList */,
 			);
 			path = LRU;
@@ -119,17 +117,6 @@
 				5073CFC02809A9AA002CFABF /* ULLRUNode.m */,
 			);
 			path = LinkedList;
-			sourceTree = "<group>";
-		};
-		5073CFC32809A9AA002CFABF /* Categroy */ = {
-			isa = PBXGroup;
-			children = (
-				5073CFC52809A9AA002CFABF /* ULLRUCache+Convenience.h */,
-				5073CFC72809A9AA002CFABF /* ULLRUCache+Convenience.m */,
-				5073CFC62809A9AA002CFABF /* ULLRULinkedList+Array.h */,
-				5073CFC42809A9AA002CFABF /* ULLRULinkedList+Array.m */,
-			);
-			path = Categroy;
 			sourceTree = "<group>";
 		};
 		5073CFD72809B8D6002CFABF /* YYLRUCache */ = {
@@ -332,7 +319,6 @@
 				5073CFD32809AEF7002CFABF /* Person.m in Sources */,
 				50DD053026FDA650004BBF31 /* ViewController.m in Sources */,
 				5073CFCC2809A9AA002CFABF /* ULLRUNode.m in Sources */,
-				5073CFCF2809A9AA002CFABF /* ULLRULinkedList+Array.m in Sources */,
 				50DD052A26FDA650004BBF31 /* AppDelegate.m in Sources */,
 				5073CFD62809B666002CFABF /* YYMemoryCache.m in Sources */,
 				50DD053B26FDA651004BBF31 /* main.m in Sources */,

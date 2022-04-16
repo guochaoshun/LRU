@@ -12,8 +12,8 @@
 - (instancetype)initWithKey:(id<NSCopying>)key value:(id<NSObject>)value {
     self = [super init];
     if (self) {
-        _key = key;
-        _value = value;
+        self.key = key;
+        self.value = value;
     }
     return self;
 }

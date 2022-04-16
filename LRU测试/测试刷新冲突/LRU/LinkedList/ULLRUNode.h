@@ -9,7 +9,7 @@
 
 @interface ULLRUNode < Key : id<NSCopying>, Value : id<NSObject> > : NSObject
 
-// 这里用assign, weak都行,个人喜欢weak
+// prev用assign, weak都行,个人喜欢weak
 // 追求极致性能就使用assign或者__unsafe_unretained
 @property (nonatomic, weak) ULLRUNode<Key, Value> *prev;
 @property (nonatomic, strong) ULLRUNode<Key, Value> *next;

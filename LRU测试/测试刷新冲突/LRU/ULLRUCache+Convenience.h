@@ -8,9 +8,6 @@
 
 #import "ULLRUCache.h"
 
-FOUNDATION_EXPORT NSString * const kULLRUCachePairKey;
-FOUNDATION_EXPORT NSString * const kULLRUCachePairValue;
-
 @interface ULLRUCache (Convenience)
 
 /// 由键值对进行初始化逻辑

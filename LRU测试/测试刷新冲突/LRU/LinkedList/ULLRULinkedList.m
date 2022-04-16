@@ -90,6 +90,7 @@
 }
 
 - (void)removeAllObjects {
+    // 只需要移除头尾即可,node的prev是弱应用,next是强引用,移除head后会触发所有的数据的dealloc
     self.head = nil;
     self.trail = nil;
 }
@@ -103,6 +104,17 @@
     }
     return c;
 }
+
+- (NSArray *)asArray {
+    NSMutableArray *retVal = [[NSMutableArray alloc] initWithCapacity:self.count];
+    ULLRUNode *node = self.head;
+    while (node) {
+        [retVal addObject:node.value];
+        node = node.next;
+    }
+    return retVal;
+}
+
 
 @end
 

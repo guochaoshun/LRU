@@ -26,7 +26,7 @@
 }
 
 - (NSDictionary *)asDictionary {
-    NSMutableDictionary *retVal = @{}.mutableCopy;
+    NSMutableDictionary *retVal = [NSMutableDictionary dictionaryWithCapacity:self.count];
     ULLRUNode *node = self.linkedList.head;
     while (node) {
         [retVal setObject:node.value forKey:node.key];

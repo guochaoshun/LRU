@@ -30,4 +30,7 @@
 - (void)removeAllObjects;
 // 时间复杂度：O(n)，由表头遍历实现, 优化项:内部记录一个数值,直接返回
 - (NSUInteger)count;
+
+- (NSArray *)asArray;
+
 @end

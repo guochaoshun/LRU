@@ -16,7 +16,7 @@
 @optional
 // 丢弃一个元素
 - (void)cache:(ULLRUCache *)cache didDropObject:(id)object forKey:(id)key;
-// 更新一个元素：`由-setObject:forKey:`  触发
+// 更新一个元素：由-setObject:forKey: 触发
 - (void)cache:(ULLRUCache *)cache didUpdateObject:(id)object forKey:(id)key;
 // 收到内存警告，会丢弃所有的元素
 - (void)cacheDidReceiveMemoryWarning:(ULLRUCache *)cache;
@@ -28,10 +28,10 @@
 // 注意：非线程安全，如果需要多线程使用时，建议自行包装加锁
 @interface ULLRUCache < Key : id<NSCopying>, Value : id<NSObject> > : NSObject
 
-// 基于个数控制缓存的数量，默认为0，表示不控制数量
+// 基于个数控制缓存的数量，默认为NSIntegerMax
 @property (nonatomic, assign) NSUInteger countLimit;
 
-@property (nonatomic, strong) NSMutableDictionary *map;
+@property (nonatomic, strong) NSMutableDictionary *nodeDic;
 @property (nonatomic, strong) ULLRULinkedList<Key, Value> *linkedList;
 @property (nonatomic, assign) NSUInteger count;
 
@@ -41,7 +41,7 @@
 @property (nonatomic, weak) id<ULLRUCacheDelegate> delegate;
 
 
-// 更新缓存数量限制
+// 更新缓存数量限制,当前缓存数量超过会触发丢弃逻辑
 // 时间复杂度：O(n) n: countLimit
 - (void)updateCountLimit:(NSUInteger)countLimit;
 
