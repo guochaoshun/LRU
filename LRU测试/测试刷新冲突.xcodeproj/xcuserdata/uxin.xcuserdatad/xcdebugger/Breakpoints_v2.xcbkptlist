@@ -36,53 +36,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F50F079F-0EA0-4CB5-B34C-68F0E0527189"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x6d4b;&#x8bd5;&#x5237;&#x65b0;&#x51b2;&#x7a81;Tests/______Tests.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-testExample"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F50F079F-0EA0-4CB5-B34C-68F0E0527189 - fe09ed20c1a0f870"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[______Tests testExample]"
-                  moduleName = "&#x6d4b;&#x8bd5;&#x5237;&#x65b0;&#x51b2;&#x7a81;Tests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/uxin/Desktop/GitHub/LRU/LRU%E6%B5%8B%E8%AF%95/%E6%B5%8B%E8%AF%95%E5%88%B7%E6%96%B0%E5%86%B2%E7%AA%81Tests/______Tests.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "472">
-               </Location>
-               <Location
-                  uuid = "F50F079F-0EA0-4CB5-B34C-68F0E0527189 - fe09ed20c1a0f870"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[______Tests testExample]"
-                  moduleName = "&#x6d4b;&#x8bd5;&#x5237;&#x65b0;&#x51b2;&#x7a81;Tests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/uxin/Desktop/GitHub/LRU/LRU%E6%B5%8B%E8%AF%95/%E6%B5%8B%E8%AF%95%E5%88%B7%E6%96%B0%E5%86%B2%E7%AA%81Tests/______Tests.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "732">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -31,23 +31,9 @@ extern void _objc_autoreleasePoolPrint(void);
 
 }
 
-// TODO: 补充下测试用例,支持自动化测试
-
 
 - (void)cacheTest {
 
-    ULLRUCache *cache = [[ULLRUCache alloc] init];
-    cache.delegate = self;
-
-    [cache setObject:[Person new] forKey:@"1"];
-    [cache setObject:[Person new] forKey:@"2"];
-    [cache setObject:[Person new] forKey:@"3"];
-    [cache setObject:[Person new] forKey:@"4"];
-    [cache setObject:[Person new] forKey:@"5"];
-    [cache setObject:[Person new] forKey:@"6"];
-    [cache setObject:[Person new] forKey:@"7"];
-
-    [cache removeAllObjects];
 }
 
 

@@ -50,9 +50,61 @@
     }
 
 }
+
+
 - (void)testExample1 {
 
+    ULLRUCache *cache = [[ULLRUCache alloc] init];
+    cache.countLimit = 3;
+    [cache setObject:[Person new] forKey:@"1"];
+    [cache setObject:[Person new] forKey:@"2"];
+    [cache setObject:[Person new] forKey:@"3"];
+
+    Person *p = [cache objectforKey:@"1"];
+    NSAssert(p, @"p对象应该有值");
+    p = [cache objectforKey:@"2"];
+    NSAssert(p, @"p对象应该有值");
+    p = [cache objectforKey:@"3"];
+    NSAssert(p, @"p对象应该有值");
+
+
+    [cache setObject:[Person new] forKey:@"4"];
+    p = [cache objectforKey:@"1"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    NSAssert(cache.count == 3, @"总数应该为3");
+    [cache setObject:[Person new] forKey:@"5"];
+    [cache setObject:[Person new] forKey:@"6"];
+    [cache setObject:[Person new] forKey:@"7"];
+
+    p = [cache objectforKey:@"1"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"2"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"3"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"4"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"5"];
+    NSAssert(p, @"p对象应该有值");
+    p = [cache objectforKey:@"6"];
+    NSAssert(p, @"p对象应该有值");
+    p = [cache objectforKey:@"7"];
+    NSAssert(p, @"p对象应该有值");
+
+    [cache removeAllObjects];
+    NSAssert(cache.count == 0, @"总数应该为0");
+
+    p = [cache objectforKey:@"5"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"6"];
+    NSAssert(p == nil, @"p对象应该为nil");
+    p = [cache objectforKey:@"7"];
+    NSAssert(p == nil, @"p对象应该为nil");
+
+
 }
+
+
 - (void)testExample2 {
 
 }
