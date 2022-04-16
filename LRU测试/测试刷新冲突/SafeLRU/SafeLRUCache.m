@@ -14,12 +14,12 @@
 /// 串行队列
 @property (nonatomic, strong) dispatch_queue_t cacheQueue;
 
-@property (nonatomic, strong) NSMutableDictionary *nodeDic;
-@property (nonatomic, strong) ULLRULinkedList *linkedList;
+@property (nonatomic, strong) NSMutableDictionary *inqueue_nodeDic;
+@property (nonatomic, strong) ULLRULinkedList *inqueue_linkedList;
 #pragma mark -内部私有属性结束
 
 #pragma mark -对应对外提供的属性
-// 对外提供的属性都没有真的的变量对应,只是为了方便外界调用,真正存贮的值在inQueue_版本中
+// 对外提供的属性都没有真的"_变量"对应,只是为了方便外界调用,真正存贮的值在"inQueue_变量"版本中
 @property (nonatomic, assign) NSUInteger inQueue_count;
 @property (nonatomic, assign) NSUInteger inQueue_countLimit;
 @property (nonatomic, assign) BOOL inQueue_ingoredMemoryWarning;
@@ -48,8 +48,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _nodeDic = [NSMutableDictionary dictionary];
-        _linkedList = [[ULLRULinkedList alloc] init];
+        _inqueue_nodeDic = [NSMutableDictionary dictionary];
+        _inqueue_linkedList = [[ULLRULinkedList alloc] init];
         _inQueue_count = 0;
         _inQueue_countLimit = NSIntegerMax;
         _cacheQueue = dispatch_queue_create("com.demo.safeLRUCache", NULL);
@@ -93,6 +93,13 @@
     return result;
 }
 
+- (NSUInteger)count {
+    __block NSUInteger result = 0;
+    dispatch_sync(self.cacheQueue, ^{
+        result = _inQueue_count;
+    });
+    return result;
+}
 
 - (void)setObject:(id<NSObject>)object forKey:(id<NSCopying>)key {
     dispatch_sync(self.cacheQueue, ^{
@@ -114,13 +121,6 @@
     });
 }
 
-- (NSUInteger)count {
-    __block NSUInteger result = 0;
-    dispatch_sync(self.cacheQueue, ^{
-        result = _inQueue_count;
-    });
-    return result;
-}
 
 - (void)removeAllObjects {
     dispatch_sync(self.cacheQueue, ^{
@@ -157,13 +157,13 @@
     if (!key) {
         return;
     }
-    ULLRUNode *node = [self.nodeDic objectForKey:key];
+    ULLRUNode *node = [self.inqueue_nodeDic objectForKey:key];
     // node存在,更新node
     if (node) {
         // object不存在,触发移除操作
         if (!object) {
-            [self.nodeDic removeObjectForKey:key];
-            [self.linkedList removeNode:node];
+            [self.inqueue_nodeDic removeObjectForKey:key];
+            [self.inqueue_linkedList removeNode:node];
             self.inQueue_count --;
         } else {
             // object存在,触发更新操作
@@ -171,13 +171,13 @@
                 node.value = object;
             }
             // 移动到头节点
-            [self.linkedList moveToHead:node];
+            [self.inqueue_linkedList moveToHead:node];
         }
     } else {
         // node不存在,新增一个node到字典和数组中
         ULLRUNode *newNode = [[ULLRUNode alloc] initWithKey:key value:object];
-        [self.nodeDic setObject:newNode forKey:key];
-        [self.linkedList addToHead:newNode];
+        [self.inqueue_nodeDic setObject:newNode forKey:key];
+        [self.inqueue_linkedList addToHead:newNode];
         self.inQueue_count ++;
 
         // 检查数量有没有超出
@@ -189,9 +189,9 @@
     if (!key) {
         return nil;
     }
-    ULLRUNode *node = [self.nodeDic objectForKey:key];
+    ULLRUNode *node = [self.inqueue_nodeDic objectForKey:key];
     if (node) {
-        [self.linkedList moveToHead:node];
+        [self.inqueue_linkedList moveToHead:node];
     }
     return node.value;
 }
@@ -200,18 +200,18 @@
     if (!key) {
         return;
     }
-    ULLRUNode *node = [self.nodeDic objectForKey:key];
+    ULLRUNode *node = [self.inqueue_nodeDic objectForKey:key];
     if (!node) {
         return;
     }
-    [self.nodeDic removeObjectForKey:key];
-    [self.linkedList removeNode:node];
+    [self.inqueue_nodeDic removeObjectForKey:key];
+    [self.inqueue_linkedList removeNode:node];
     self.inQueue_count --;
 }
 
 - (void)p_inQueue_removeAllObjects {
-    [self.nodeDic removeAllObjects];
-    [self.linkedList removeAllObjects];
+    [self.inqueue_nodeDic removeAllObjects];
+    [self.inqueue_linkedList removeAllObjects];
     self.inQueue_count = 0;
 }
 
@@ -227,8 +227,8 @@
     if (self.inQueue_count > self.inQueue_countLimit) {
         NSUInteger diff = self.inQueue_count - self.inQueue_countLimit;
         for (NSUInteger i = 0; i < diff; i++) {
-            ULLRUNode *trailNode = [self.linkedList removeTrailNode];
-            [self.nodeDic removeObjectForKey:trailNode.key];
+            ULLRUNode *trailNode = [self.inqueue_linkedList removeTrailNode];
+            [self.inqueue_nodeDic removeObjectForKey:trailNode.key];
             self.inQueue_count --;
         }
     }
@@ -237,7 +237,7 @@
 - (NSDictionary *)p_inQueue_asDictionary {
 
     NSMutableDictionary *retVal = [NSMutableDictionary dictionaryWithCapacity:self.inQueue_count];
-    ULLRUNode *node = self.linkedList.headNode;
+    ULLRUNode *node = self.inqueue_linkedList.headNode;
     while (node) {
         [retVal setObject:node.value forKey:node.key];
         node = (ULLRUNode *)node.next;

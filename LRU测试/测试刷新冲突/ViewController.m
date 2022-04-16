@@ -36,7 +36,7 @@ extern void _objc_autoreleasePoolPrint(void);
     // 无线程安全的类,执行1W次,必定出现野指针crash
     ULLRUCache *cache = [[ULLRUCache alloc] init];
     cache.countLimit = 3;
-    for (int i = 0; i < 10000; i++) {
+    for (NSInteger i = 0; i < 10000; i++) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache setObject:[Person new] forKey:@"1"];
         });
@@ -45,6 +45,9 @@ extern void _objc_autoreleasePoolPrint(void);
         });
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache setObject:[Person new] forKey:@"3"];
+        });
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [cache setObject:[Person new] forKey:@"4"];
         });
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache removeObjectForKey:@"3"];
@@ -54,11 +57,11 @@ extern void _objc_autoreleasePoolPrint(void);
 
 
 - (void)safeCacheThreadTest {
-    // 线程安全的类,执行10W次,都正常
+    // 线程安全的类,执行10*1W次,都正常
     // 制作线程安全的类思路: https://blog.csdn.net/u014600626/article/details/107691986
     SafeLRUCache *cache = [[SafeLRUCache alloc] init];
     cache.countLimit = 3;
-    for (int i = 0; i < 10000; i++) {
+    for (NSInteger i = 0; i < 10000; i++) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache setObject:[Person new] forKey:@"1"];
         });
@@ -67,6 +70,12 @@ extern void _objc_autoreleasePoolPrint(void);
         });
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache setObject:[Person new] forKey:@"3"];
+        });
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [cache setObject:[Person new] forKey:@"4"];
+        });
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [cache objectforKey:@"4"];
         });
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [cache removeObjectForKey:@"3"];
