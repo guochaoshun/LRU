@@ -10,8 +10,8 @@
 
 @interface ULLRULinkedList < Key : id<NSCopying>, Value : id<NSObject> > ()
 
-@property (nonatomic, strong) ULLRUNode *head;
-@property (nonatomic, strong) ULLRUNode *trail;
+@property (nonatomic, strong) ULLRUNode *headNode;
+@property (nonatomic, strong) ULLRUNode *trailNode;
 @property (nonatomic, assign) NSInteger count;
 
 @end
@@ -23,15 +23,15 @@
     if (!node) {
         return;
     }
-    if (self.head == node) {
+    if (self.headNode == node) {
         return;
     }
-    node.next = self.head;
-    self.head.prev = node;
-    self.head = node;
+    node.next = self.headNode;
+    self.headNode.prev = node;
+    self.headNode = node;
     self.count ++;
-    if (!self.trail) {
-        self.trail = node;
+    if (!self.trailNode) {
+        self.trailNode = node;
     }
 }
 
@@ -40,15 +40,15 @@
     if (!node) {
         return;
     }
-    if (self.trail == node) {
+    if (self.trailNode == node) {
         return;
     }
-    node.prev = self.trail;
-    self.trail.next = node;
-    self.trail = node;
+    node.prev = self.trailNode;
+    self.trailNode.next = node;
+    self.trailNode = node;
     self.count ++;
-    if (!self.head) {
-        self.head = node;
+    if (!self.headNode) {
+        self.headNode = node;
     }
 }
 
@@ -57,17 +57,17 @@
     if (!node) {
         return;
     }
-    if (self.head == node && self.trail == node) {
+    if (self.headNode == node && self.trailNode == node) {
         [self removeAllObjects];
-    } else if (self.head == node) {
+    } else if (self.headNode == node) {
         node.prev = nil;
         node.next.prev = nil;
-        self.head = node.next;
+        self.headNode = node.next;
         self.count --;
-    } else if (self.trail == node) {
+    } else if (self.trailNode == node) {
         node.next = nil;
         node.prev.next = nil;
-        self.trail = node.prev;
+        self.trailNode = node.prev;
         self.count --;
     } else {
         node.prev.next = node.next;
@@ -77,13 +77,13 @@
 }
 
 - (ULLRUNode *)removeTrailNode {
-    ULLRUNode *node = self.trail;
+    ULLRUNode *node = self.trailNode;
     [self removeNode:node];
     return node;
 }
 
 - (ULLRUNode *)removeHeadNode {
-    ULLRUNode *node = self.head;
+    ULLRUNode *node = self.headNode;
     [self removeNode:node];
     return node;
 }
@@ -95,8 +95,8 @@
 
 - (void)removeAllObjects {
     // 只需要移除头尾即可,node的prev是弱应用,next是强引用,移除head后会触发所有的数据的dealloc
-    self.head = nil;
-    self.trail = nil;
+    self.headNode = nil;
+    self.trailNode = nil;
     self.count = 0;
 }
 
@@ -106,14 +106,13 @@
 
 - (NSArray *)asArray {
     NSMutableArray *retVal = [[NSMutableArray alloc] initWithCapacity:self.count];
-    ULLRUNode *node = self.head;
+    ULLRUNode *node = self.headNode;
     while (node) {
         [retVal addObject:node.value];
         node = node.next;
     }
     return [retVal copy];
 }
-
 
 @end
 

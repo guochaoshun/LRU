@@ -6,6 +6,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "ULLRUCache.h"
+#import "ULLRULinkedList.h"
+#import "ULLRUNode.h"
+#import "Person.h"
 
 @interface ______Tests : XCTestCase
 
@@ -21,9 +25,51 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
+/// 验证ULLRULinkedList内部维护的count是否准确
 - (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    ULLRULinkedList *linkList = [[ULLRULinkedList alloc] init];
+    for (int i = 0; i<100; i++) {
+        ULLRUNode *node = [[ULLRUNode alloc] initWithKey:@(i) value:[Person new]];
+        [linkList addToHead:node];
+        NSAssert(linkList.asArray.count == linkList.count, @"数量不匹配");
+
+        node = [[ULLRUNode alloc] initWithKey:@(1000+i) value:[Person new]];
+        [linkList addToTrail:node];
+        NSAssert(linkList.asArray.count == linkList.count, @"数量不匹配");
+    }
+    for (int i = 1; i<10; i++) {
+        [linkList removeHeadNode];
+        NSAssert(linkList.asArray.count == linkList.count, @"数量不匹配");
+        [linkList removeTrailNode];
+        NSAssert(linkList.asArray.count == linkList.count, @"数量不匹配");
+    }
+
+    for (int i = 1; i<10; i++) {
+        [linkList moveToHead:linkList.trailNode];
+        NSAssert(linkList.asArray.count == linkList.count, @"数量不匹配");
+    }
+
+}
+- (void)testExample1 {
+
+}
+- (void)testExample2 {
+
+}
+- (void)testExample3 {
+
+}
+- (void)testExample4 {
+
+}
+- (void)testExample5 {
+
+}
+- (void)testExample6 {
+
+}
+- (void)testExample7 {
+
 }
 
 - (void)testPerformanceExample {
