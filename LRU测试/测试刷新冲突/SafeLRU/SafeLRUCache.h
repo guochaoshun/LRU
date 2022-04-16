@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 是否要忽略内存警告
 @property (nonatomic, assign) BOOL ingoredMemoryWarning;
 
+/// 由键值对进行初始化逻辑
+/// @param dictionary @{ @"key": @"value"}
+/// @param countLimit 最大容量
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary countLimit:(NSUInteger)countLimit;
 
 // 更新缓存数量限制,当前缓存数量超过会触发丢弃逻辑
 // 时间复杂度：O(n) n: countLimit
@@ -44,6 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (Value)objectForKeyedSubscript:(Key)key;
 /// 提供语法糖形式设置值
 - (void)setObject:(Value)obj forKeyedSubscript:(Key)key;
+
+// 转换成键值对
+/// @return  @{ @"key": @"value"}
+- (NSDictionary *)asDictionary;
 
 @end
 

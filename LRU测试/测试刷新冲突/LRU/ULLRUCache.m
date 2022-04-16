@@ -148,7 +148,7 @@
     }
 }
 
-- (id<NSObject,NSCopying>)objectForKeyedSubscript:(id<NSCopying>)key {
+- (id<NSObject>)objectForKeyedSubscript:(id<NSCopying>)key {
     return [self objectforKey:key];
 }
 
