@@ -32,7 +32,7 @@
 @property (nonatomic, assign) NSUInteger countLimit;
 
 @property (nonatomic, strong) NSMutableDictionary *nodeDic;
-@property (nonatomic, strong) ULLRULinkedList<Key, Value> *linkedList;
+@property (nonatomic, strong) ULLRULinkedList *linkedList;
 @property (nonatomic, assign) NSUInteger count;
 
 // 是否要忽略内存警告

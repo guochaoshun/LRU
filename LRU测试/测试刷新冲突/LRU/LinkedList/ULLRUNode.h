@@ -11,8 +11,8 @@
 
 // prev用assign, weak都行,个人喜欢weak
 // 追求极致性能就使用assign或者__unsafe_unretained
-@property (nonatomic, weak) ULLRUNode<Key, Value> *prev;
-@property (nonatomic, strong) ULLRUNode<Key, Value> *next;
+@property (nonatomic, weak) ULLRUNode *prev;
+@property (nonatomic, strong) ULLRUNode *next;
 
 @property (nonatomic, copy) Key key;
 @property (nonatomic, strong) Value value;

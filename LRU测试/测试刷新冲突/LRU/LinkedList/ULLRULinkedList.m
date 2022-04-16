@@ -8,14 +8,13 @@
 
 #import "ULLRULinkedList.h"
 
-
 @interface ULLRULinkedList < Key : id<NSCopying>, Value : id<NSObject> > ()
 
-@property (nonatomic, strong, readwrite) ULLRUNode<Key, Value> *head;
-@property (nonatomic, strong, readwrite) ULLRUNode<Key, Value> *trail;
+@property (nonatomic, strong) ULLRUNode *head;
+@property (nonatomic, strong) ULLRUNode *trail;
+@property (nonatomic, assign) NSInteger count;
 
 @end
-
 
 @implementation ULLRULinkedList
 
@@ -30,6 +29,7 @@
     node.next = self.head;
     self.head.prev = node;
     self.head = node;
+    self.count ++;
     if (!self.trail) {
         self.trail = node;
     }
@@ -46,6 +46,7 @@
     node.prev = self.trail;
     self.trail.next = node;
     self.trail = node;
+    self.count ++;
     if (!self.head) {
         self.head = node;
     }
@@ -62,13 +63,16 @@
         node.prev = nil;
         node.next.prev = nil;
         self.head = node.next;
+        self.count --;
     } else if (self.trail == node) {
         node.next = nil;
         node.prev.next = nil;
         self.trail = node.prev;
+        self.count --;
     } else {
         node.prev.next = node.next;
-        node.next.prev = node.prev;        
+        node.next.prev = node.prev;
+        self.count --;
     }
 }
 
@@ -93,16 +97,11 @@
     // 只需要移除头尾即可,node的prev是弱应用,next是强引用,移除head后会触发所有的数据的dealloc
     self.head = nil;
     self.trail = nil;
+    self.count = 0;
 }
 
-- (NSUInteger)count {
-    NSUInteger c = 0;
-    ULLRUNode *node = self.head;
-    while (node) {
-        c ++;
-        node = node.next;
-    }
-    return c;
+- (NSInteger)count {
+    return _count;
 }
 
 - (NSArray *)asArray {
@@ -112,7 +111,7 @@
         [retVal addObject:node.value];
         node = node.next;
     }
-    return retVal;
+    return [retVal copy];
 }
 
 
