@@ -12,6 +12,10 @@
 
 @interface ULLRUCache ()
 
+@property (nonatomic, strong) NSMutableDictionary *nodeDic;
+@property (nonatomic, strong) ULLRULinkedList *linkedList;
+@property (nonatomic, assign) NSUInteger count;
+
 @end
 
 @implementation ULLRUCache

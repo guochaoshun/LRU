@@ -15,10 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 // 基于个数控制缓存的数量，默认为NSIntegerMax
 @property (nonatomic, assign) NSUInteger countLimit;
 
-@property (nonatomic, strong) NSMutableDictionary *nodeDic;
-@property (nonatomic, strong) ULLRULinkedList *linkedList;
-@property (nonatomic, assign) NSUInteger count;
-
 // 是否要忽略内存警告
 @property (nonatomic, assign) BOOL ingoredMemoryWarning;
 
@@ -41,8 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeObjectForKey:(Key)key;
 // 移除所有的缓存
 - (void)removeAllObjects;
-// 在收到内存警告时会调用
-- (void)didReceiveMemoryWarning;
 
 /// 提供语法糖形式获取值
 - (Value)objectForKeyedSubscript:(Key)key;
